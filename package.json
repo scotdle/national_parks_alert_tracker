@@ -1,0 +1,18 @@
+{
+  "name": "national_parks_alert_tracker",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start --proxy 'localhost' --port:80 --files '**/*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scotdle/national_parks_alert_tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scotdle/national_parks_alert_tracker/issues"
+  }
+}
