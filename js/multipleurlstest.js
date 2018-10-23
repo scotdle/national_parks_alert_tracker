@@ -44,20 +44,44 @@ function parksFilter(parkData, filteredAlerts) {
 
 function joinParksToAlerts(filteredParks, filteredAlerts) {
 
-    const parksWithAlerts = filteredParks.map(park => {
+    const parksJoinedWithAlerts = filteredParks.map(park => {
         park.alerts = filteredAlerts.filter(alert => alert.parkCode === park.parkCode);
         return park}).map(park =>{
         park.alerts = park.alerts.map(alert => alert.description).join(' - ');
         return park
 
     });
-    console.log(parksWithAlerts);
+
+displayAlerts(parksJoinedWithAlerts);
+}
+
+function displayAlerts(parksJoinedWithAlerts) {
+
+    const natParkDiv = document.querySelector('.nationalparks');
+    console.table(parksJoinedWithAlerts);
+
+
+
+    const displayEverything = parksJoinedWithAlerts.map(parkAndAlerts => {
+        const parkName = parkAndAlerts.fullName;
+        const stateName = parkAndAlerts.states;
+        const alerts = parkAndAlerts.alerts;
+        return`
+       <div class="col-lg-12">
+        <span class="park">${parkName}, ${stateName}</span>
+        <span class="alerts">${alerts}</span>
+
+        
+      </div>
+    `;
+
+
+    });
+    natParkDiv.innerHTML = displayEverything;
 }
 
 
-    const natParkDiv = document.querySelector('.nationalparks');
-    natParkDiv.innerHTML = parksWithAlerts;
 
-    console.log(parksWithAlerts);
+
 
 
