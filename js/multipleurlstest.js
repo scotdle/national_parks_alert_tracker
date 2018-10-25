@@ -39,44 +39,45 @@ function parksFilter(parkData, filteredAlerts) {
 
     });
     joinParksToAlerts(filteredParks, filteredAlerts);
-
 }
 
 function joinParksToAlerts(filteredParks, filteredAlerts) {
 
-    const parksJoinedWithAlerts = filteredParks.map(park => {
+    let parksJoinedWithAlerts = filteredParks.map(park => {
         park.alerts = filteredAlerts.filter(alert => alert.parkCode === park.parkCode);
         return park}).map(park =>{
-        park.alerts = park.alerts.map(alert => alert.description).join(' - ');
-        return park
+        park.alerts = park.alerts.map(alert => alert.description).join(' <br>  ');
+        return park});
 
-    });
+
 
 displayAlerts(parksJoinedWithAlerts);
+
+    console.log(parksJoinedWithAlerts);
+
 }
 
 function displayAlerts(parksJoinedWithAlerts) {
+    parksJoinedWithAlerts
 
     const natParkDiv = document.querySelector('.nationalparks');
-    console.table(parksJoinedWithAlerts);
-
-
-
     const displayEverything = parksJoinedWithAlerts.map(parkAndAlerts => {
         const parkName = parkAndAlerts.fullName;
         const stateName = parkAndAlerts.states;
-        const alerts = parkAndAlerts.alerts;
-        return`
-       <div class="col-lg-12">
-        <span class="park">${parkName}, ${stateName}</span>
-        <span class="alerts">${alerts}</span>
+        const alertsFromParks = parkAndAlerts.alerts;
+        if(alertsFromParks === ""){
+            console.log("no alerts at this time");
 
-        
-      </div>
-    `;
+        }
+        return `
+       <div class="grid-item">
+        <span class="park">${parkName}, ${stateName}<br></span>
+        <span class="alerts">${alertsFromParks}</span>
+</div>
+`
+}).join('');
 
 
-    });
     natParkDiv.innerHTML = displayEverything;
 }
 
