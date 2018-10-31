@@ -61,13 +61,13 @@ function displayAlerts(parksJoinedWithAlerts) {
     parksJoinedWithAlerts
 
     const natParkDiv = document.querySelector('.nationalparks');
+    const eachNatPark = document.querySelector('.grid-item');
+    const noAlerts = "(no alerts at this time)";
     const displayEverything = parksJoinedWithAlerts.map(parkAndAlerts => {
         const parkName = parkAndAlerts.fullName;
         const stateName = parkAndAlerts.states;
         const alertsFromParks = parkAndAlerts.alerts;
         if(alertsFromParks === ""){
-            console.log("no alerts at this time");
-
         }
         return `
        <div class="grid-item">
