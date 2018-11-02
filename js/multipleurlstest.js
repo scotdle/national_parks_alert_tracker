@@ -60,7 +60,7 @@ displayAlerts(parksJoinedWithAlerts);
 function displayAlerts(parksJoinedWithAlerts) {
     parksJoinedWithAlerts
 
-    const natParkDiv = document.querySelector('.nationalparks');
+    const natParkDiv = document.querySelector('.card-columns');
     const eachNatPark = document.querySelector('.grid-item');
     const noAlerts = "(no alerts at this time)";
     const displayEverything = parksJoinedWithAlerts.map(parkAndAlerts => {
@@ -70,9 +70,9 @@ function displayAlerts(parksJoinedWithAlerts) {
         if(alertsFromParks === ""){
         }
         return `
-       <div class="grid-item">
-        <span class="park">${parkName}, ${stateName}<br></span>
-        <span class="alerts">${alertsFromParks}</span>
+       <div class="natpark card">
+        <div class=" card-title">${parkName}, ${stateName}<br></div>
+        <div class=" card-text">${alertsFromParks}</div>
 </div>
 `
 }).join('');
