@@ -1,5 +1,5 @@
 const alertEndpoint = ('https://api.nps.gov/api/v1/alerts?limit=400&api_key=' + apikey);
-const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=500&api_key=' + apikey);
+const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=359&fields=images&api_key=' + apikey);
 
 getParkData();
 
@@ -15,7 +15,7 @@ const alertResults = await parkAlerts.json();
  const parkData = parkResults.data;
 
 //console.log(alertsData);
-    //console.log(parkResults.data);
+    console.log(parkResults);
 alertsFilter(alertsData, parkData);
 
 }
@@ -58,19 +58,23 @@ displayAlerts(parksJoinedWithAlerts);
 }
 
 function displayAlerts(parksJoinedWithAlerts) {
-    parksJoinedWithAlerts
 
+console.log(parksJoinedWithAlerts);
     const natParkDiv = document.querySelector('.card-columns');
     const eachNatPark = document.querySelector('.grid-item');
     const noAlerts = "(no alerts at this time)";
     const displayEverything = parksJoinedWithAlerts.map(parkAndAlerts => {
+
         const parkName = parkAndAlerts.fullName;
         const stateName = parkAndAlerts.states;
         const alertsFromParks = parkAndAlerts.alerts;
+        const parkImage = parkAndAlerts.images[0].url;
+
         if(alertsFromParks === ""){
         }
         return `
        <div class="natpark card">
+       <div class="card-img-top "><img class="parkphoto" src="${parkImage}"></div>
         <div class=" card-title">${parkName}, ${stateName}<br></div>
         <div class=" card-text">${alertsFromParks}</div>
 </div>
