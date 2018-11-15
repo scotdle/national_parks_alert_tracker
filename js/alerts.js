@@ -1,5 +1,5 @@
 const alertEndpoint = ('https://api.nps.gov/api/v1/alerts?limit=400&api_key=' + apikey);
-const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=359&fields=images&api_key=' + apikey);
+const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=500&api_key=' + apikey);
 
 getParkData();
 
@@ -21,9 +21,9 @@ alertsFilter(alertsData, parkData);
 }
 
 function alertsFilter(alertsData, parkData) {
-
+console.log(alertsData);
     const filteredAlerts = alertsData.filter(function (onlyAlerts) {
-        return onlyAlerts.category.toLowerCase() === "park closure" || onlyAlerts.category.toLowerCase() === "caution";
+        return onlyAlerts.category.toLowerCase() === "park closure" || onlyAlerts.category.toLowerCase() === "caution" || onlyAlerts.category.toLowerCase() === "information"  ;
 
 
     });
@@ -67,14 +67,14 @@ console.log(parksJoinedWithAlerts);
 
         const parkName = parkAndAlerts.fullName;
         const stateName = parkAndAlerts.states;
-        const alertsFromParks = parkAndAlerts.alerts;
-        const parkImage = parkAndAlerts.images[0].url;
+        let alertsFromParks = parkAndAlerts.alerts;
+      //  const parkImage = parkAndAlerts.images[0].url; plans to incorporate images into each of the parks coming soon.
 
         if(alertsFromParks === ""){
+            alertsFromParks = noAlerts;
         }
         return `
        <div class="natpark card">
-       <div class="card-img-top "><img class="parkphoto" src="${parkImage}"></div>
         <div class=" card-title">${parkName}, ${stateName}<br></div>
         <div class=" card-text">${alertsFromParks}</div>
 </div>

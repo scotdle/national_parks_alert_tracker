@@ -2,9 +2,10 @@
   "name": "national_parks_alert_tracker",
   "description": "",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "scripts": {
-    "start": "browser-sync start --proxy 'localhost' --port:80 --files '**/*'"
+    "start": "browser-sync start --proxy 'localhost' --port:80 --files '**/*'",
+    "dev": "gulp"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,14 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/scotdle/national_parks_alert_tracker/issues"
-  }
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.2",
+    "install": "^0.12.2",
+    "npm": "^6.4.1",
+    "run-sequence": "^2.2.1"
+  },
+  "dependencies": {}
 }
