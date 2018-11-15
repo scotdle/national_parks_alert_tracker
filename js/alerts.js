@@ -1,5 +1,5 @@
-const alertEndpoint = ('https://api.nps.gov/api/v1/alerts?limit=400&api_key=' + apikey);
-const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=500&api_key=' + apikey);
+const alertEndpoint = ('https://api.nps.gov/api/v1/alerts?limit=400' );
+const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=500' );
 
 getParkData();
 
