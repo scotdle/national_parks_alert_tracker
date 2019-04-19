@@ -1,5 +1,10 @@
-const alertEndpoint = ('https://api.nps.gov/api/v1/alerts?limit=400' );
-const parkEndpoint = ('https://api.nps.gov/api/v1/parks?limit=500' );
+const alertEndpoint = ('https://developer.nps.gov/api/v1/alerts?parkCode=&limit=400&api_key=' + apikey +' ' );
+const parkEndpoint = ('https://developer.nps.gov/api/v1/parks?parkCode=&limit=400&api_key=' + apikey +' ' );
+
+console.log(alertEndpoint);
+console.log(parkEndpoint);
+
+
 
 getParkData();
 
@@ -48,7 +53,7 @@ function joinParksToAlerts(filteredParks, filteredAlerts) {
         return park}).map(park =>{
         park.alerts = park.alerts.map(alert => alert.description).join(' <br>  ');
         return park});
-
+console.log(parksJoinedWithAlerts);
 
 
 displayAlerts(parksJoinedWithAlerts);
