@@ -19,6 +19,9 @@
 .natpark {
   padding: 10px; }
 
+.card-columns {
+  padding-bottom: 50px; }
+
 .navbar {
   background-color: lightgrey; }
 
@@ -40,7 +43,7 @@ path:hover, circle:hover {
   cursor: pointer; }
 
 .pick_a_state {
-  font-family: NationalParkOutline;
+  font-family: NationalParkRegular;
   text-align: center; }
 
 .alerts_section {
@@ -69,7 +72,7 @@ svg {
   font-size: 8vw; }
 
 @media screen and (max-width: 600px) {
-  #svg_us_map {
+  #pick_a_state_function {
     display: none; } }
 
 @media screen and (min-width: 601px) {

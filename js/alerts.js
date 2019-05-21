@@ -1,28 +1,36 @@
 var stateName = "";
 var alertEndpoint = "";
 var parkEndpoint = "";
-const states = document.querySelectorAll('.pick_a_state_function');
-const states_mobile = document.querySelectorAll('.pick_a_state_function_mobile');
+const states = document.querySelectorAll('path');
+const states_mobile = document.getElementById('pick_a_state_function_mobile');
 
 
 // add event listeners
+
 states.forEach(function (el) {
-    el.addEventListener("click",getStateName);
-    console.log(states);
-});
+    el.addEventListener("click",getStateNameDesktop);
+});    states_mobile.addEventListener("change",getStateNameMobile);
 
-states_mobile.forEach(function (el) {
-    el.addEventListener("change",getStateName);
-    console.log(states);
-});
+    function getStateNameDesktop(nodeList) {
+        console.log(this);
+        stateName = nodeList.path[0].id;
+        buildURL();
+    }
 
+function getStateNameMobile() {
+    stateName = states_mobile[states_mobile.selectedIndex].id;
+    buildURL();
+}
 
-function getStateName(nodeList) {
-    stateName = nodeList.path[0].id|| nodeList.path[1].id;
-    console.log(states);
-    console.log(stateName);
+function test(nodeList) {
+
+    console.log(this);
+}
+function buildURL() {
+
     alertEndpoint = "https://developer.nps.gov/api/v1/alerts?stateCode=" + stateName + "&api_key=" + apikey;
     parkEndpoint = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateName + "&limit=100&api_key=" + apikey;
+    console.log(alertEndpoint);
     scrolltoAlerts();
 }
 
@@ -41,10 +49,8 @@ alertsArea.innerHTML ="<img src='images/us_stroke_animation.gif' class='center-b
 
   async function getData(alertsArea, alertHeader) {
 
-      console.log(alertEndpoint);
-      console.log(parkEndpoint);
 
-      var [getAlertData, getParkData] = await Promise.all([fetch(alertEndpoint), fetch(parkEndpoint)]);
+      const [getAlertData, getParkData] = await Promise.all([fetch(alertEndpoint), fetch(parkEndpoint)]);
 
 
       var alertResults = await getAlertData.json();
@@ -63,7 +69,6 @@ alertsArea.innerHTML ="<img src='images/us_stroke_animation.gif' class='center-b
 
 function displayAlerts(parksWithAlerts, alertsArea, alertHeader) {
 
-    const eachNatPark = document.querySelector('.grid-item');
     const hideLoader = document.querySelector('.us_gif');
     const noAlerts = "(no alerts at this time)";
     var cardColumns = document.createElement("div");
@@ -78,19 +83,20 @@ alertHeader.innerText = stateName + " alerts";
 
     let eachParkAndAlert = parksWithAlerts.map(function(singlePark) {
 
+
+        let cardText = singlePark.alertData.map(function(singleAlert) {
+            return "<b>" + singleAlert.title + "</b><br>" +
+          singleAlert.description + "<br><br>";
+        }).join("");
+
+        if (cardText.length === 0 ) {
+
+          cardText = singlePark.description + "<b> there are no alerts at this time.</b><br>" ;
+        }
       return `
        <div class="natpark card">
-        <div class="card-title">${singlePark.fullName}<br></div>
-        <div class="card-text">${singlePark.alertData.map(function(singleAlert) {
-            return "<b>" + singleAlert.title + "</b><br>" + 
-          singleAlert.description + "<br><br>";
-            if(singlePark.alertData === []){
-return noAlerts;
-          }
-
-      }).join("")
-      
-      }</div>
+        <div class="card-title"><a href="${singlePark.url}"> ${singlePark.fullName}</a><br></div>
+        <div class="card-text">${cardText}</div>
 </div>
 `
     }).join("");

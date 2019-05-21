@@ -1,20 +1,82 @@
+@font-face {
+  font-family: NationalParkOutline;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/NationalPark-Outline.otf"); }
+
+@font-face {
+  font-family: NationalParkRegular;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/NationalPark-Regular.otf"); }
+
+@font-face {
+  font-family: NationalParkHeavy;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/NationalPark-Heavy.otf"); }
 
 .natpark {
   padding: 10px;
-
 }
+
+.card-columns {
+  padding-bottom: 50px;}
+
+
+.navbar {
+  background-color: lightgrey; }
 
 .card-title {
-  font-family: 'Baloo Bhaijaan', cursive;
-
-
-}
+  font-family: 'NationalParkHeavy', cursive; }
 
 .logo {
   height: 30px; }
 
 .parkphoto {
- width: 100px;
- height: 100px;
+  width: 100px;
+  height: 100px; }
 
-}
+path:hover, circle:hover {
+  transition: 0.7s;
+  stroke: black !important;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  cursor: pointer; }
+
+.pick_a_state {
+  font-family: NationalParkRegular;
+  text-align: center; }
+
+.alerts_section {
+  background-color: white;
+  height: 100vh; }
+
+.alerts {
+  text-align: center; }
+
+svg {
+  display: block;
+  margin: auto; }
+
+.us_gif {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; }
+
+.state {
+  width: 100%;
+  height: auto; }
+
+.mobile_state_picker {
+  font-family: NationalParkRegular;
+  font-size: 8vw; }
+
+@media screen and (max-width: 600px) {
+  #pick_a_state_function {
+    display: none; } }
+
+@media screen and (min-width: 601px) {
+  .mobile_state_picker {
+    display: none; } }
