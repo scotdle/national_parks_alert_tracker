@@ -21,7 +21,7 @@
     "gulp": "^3.9.1",
     "gulp-sass": "^4.0.2",
     "install": "^0.12.2",
-    "npm": "^6.4.1",
+    "npm": "^6.9.0",
     "run-sequence": "^2.2.1"
   },
   "dependencies": {}
