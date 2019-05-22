@@ -32,18 +32,18 @@ gulp.task('sass', function() {
 });
 
 // Watchers
-gulp.task('watch', function() {
-    gulp.watch('scss/**/*.scss', ['sass']);
+/*gulp.task('watch', function() {
+    gulp.watch('scss/!**!/!*.scss', ['sass']);
     gulp.watch('*.html', browserSync.reload);
-    gulp.watch('js/**/*.js', browserSync.reload);
-});
+    gulp.watch('js/!**!/!*.js', browserSync.reload);
+});*/
 
 
 // Build Sequences
 // ---------------
 
 gulp.task('default', function(callback) {
-    runSequence(['sass', 'browserSync'], 'watch',
+    runSequence(['sass', 'browserSync'], /*'watch',*/
         callback
     )
 });
