@@ -1,5 +1,3 @@
-const axios = require("axios/index");
-const qs = require("qs");
 const fetch = require("node-fetch");
 const colors = require('colors');
 
