@@ -1,6 +1,6 @@
 # example netlify.toml
 [build]
-  command = "gulp style"
+  command = "gulp"
   functions = "functions/"
   publish = "./"
 
