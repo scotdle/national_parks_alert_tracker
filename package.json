@@ -26,6 +26,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "install": "^0.12.2",
+    "node-fetch": "^2.6.0",
     "npm": "^6.9.0"
   },
   "dependencies": {
