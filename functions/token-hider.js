@@ -1,5 +1,5 @@
-import fetch from "node-fetch";
-const colors = require('colors');
+
+const fetch = require("node-fetch");
 
 
 var parksWithAlerts = "";
