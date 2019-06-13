@@ -1,7 +1,7 @@
 # example netlify.toml
 [build]
   command = "gulp"
-  functions = "functions"
+  functions = "functions/"
   publish = "./"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app. 
