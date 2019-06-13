@@ -14,25 +14,39 @@ states.forEach(function (el) {
     function getStateNameDesktop(nodeList) {
         console.log(this);
         stateName = nodeList.path[0].id;
-        buildURL();
+        console.log(stateName);
+        fetchNetlifyFunction();
     }
 
 function getStateNameMobile() {
     stateName = states_mobile[states_mobile.selectedIndex].id;
-    buildURL();
+}
+
+async function fetchNetlifyFunction() {
+
+     let netFunction ='https://nps-alert-tracker.netlify.com/.netlify/functions/token-hider?stateName=' +stateName;
+     fetch(netFunction).then(function(response) {
+        if (!response.ok) {
+            throw new Error("HTTP error, status = " + response.status);
+        }
+        return response.json();
+    });
+
+
+
+
 }
 
 function test(nodeList) {
 
     console.log(this);
 }
-function buildURL() {
+/*function buildURL() {
 
     alertEndpoint = "https://developer.nps.gov/api/v1/alerts?stateCode=" + stateName + "&api_key=" + apikey;
     parkEndpoint = "https://developer.nps.gov/api/v1/parks?stateCode=" + stateName + "&limit=100&api_key=" + apikey;
-    console.log(alertEndpoint);
     scrolltoAlerts();
-}
+}*/
 
 function scrolltoAlerts() {
 
@@ -42,12 +56,11 @@ function scrolltoAlerts() {
     alertsSection.scrollIntoView({  behavior: 'smooth' });
 alertHeader.innerText= "loading alerts for " + stateName;
 alertsArea.innerHTML ="<img src='images/us_stroke_animation.gif' class='center-block img-fluid us_gif' alt='scooterslogo'/>";
-    console.log(stateName);
     getData(alertsArea, alertHeader);
 }
 
 
-  async function getData(alertsArea, alertHeader) {
+ /* async function getData(alertsArea, alertHeader) {
 
 
       const [getAlertData, getParkData] = await Promise.all([fetch(alertEndpoint), fetch(parkEndpoint)]);
@@ -64,7 +77,7 @@ alertsArea.innerHTML ="<img src='images/us_stroke_animation.gif' class='center-b
       });
 
       displayAlerts(parksWithAlerts, alertsArea, alertHeader)
- }
+ }*/
 
 
 function displayAlerts(parksWithAlerts, alertsArea, alertHeader) {
@@ -75,11 +88,9 @@ function displayAlerts(parksWithAlerts, alertsArea, alertHeader) {
     cardColumns.setAttribute('class', 'card-columns');
     hideLoader.style.display = "none";
     alertsArea.appendChild(cardColumns);
-    console.log(parksWithAlerts);
 alertHeader.innerText = stateName + " alerts";
 
 
-    console.log(parksWithAlerts.length);
 
     let eachParkAndAlert = parksWithAlerts.map(function(singlePark) {
 
@@ -100,79 +111,6 @@ alertHeader.innerText = stateName + " alerts";
 </div>
 `
     }).join("");
-    console.log(eachParkAndAlert);
     cardColumns.innerHTML = (eachParkAndAlert);
 
 }
-/*
-function alertsFilter(alertsData, parkData) {
-console.log(alertsData);
-    const filteredAlerts = alertsData.filter(function (onlyAlerts) {
-        return onlyAlerts.category.toLowerCase() === "park closure" || onlyAlerts.category.toLowerCase() === "caution" || onlyAlerts.category.toLowerCase() === "information"  ;
-
-
-    });
-    //parksFilter(parkData, filteredAlerts);
-    joinParksToAlerts(parkData, filteredAlerts);
-
-
-
-}
-
-function parksFilter(parkData, filteredAlerts) {
-    const filteredParks = parkData.filter(function (onlyNatParks) {
-        return onlyNatParks.designation.toLowerCase().includes( "national park");
-
-    });
-    joinParksToAlerts(filteredParks, filteredAlerts);
-}
-
-function joinParksToAlerts(filteredParks, filteredAlerts) {
-
-    let parksJoinedWithAlerts = filteredParks.map(park => {
-        park.alerts = filteredAlerts.filter(alert => alert.parkCode === park.parkCode);
-        return park}).map(park =>{
-        park.alerts = park.alerts.map(alert => alert.description).join(' <br>  ');
-        return park});
-console.log(parksJoinedWithAlerts);
-
-
-displayAlerts(parksJoinedWithAlerts);
-
-    console.log(parksJoinedWithAlerts);
-
-}
-
-function displayAlerts(parksJoinedWithAlerts) {
-
-console.log(parksJoinedWithAlerts);
-    const natParkDiv = document.querySelector('.card-columns');
-    const eachNatPark = document.querySelector('.grid-item');
-    const noAlerts = "(no alerts at this time)";
-    const displayEverything = parksJoinedWithAlerts.map(parkAndAlerts => {
-
-        const parkName = parkAndAlerts.fullName;
-        const stateName = parkAndAlerts.states;
-        let alertsFromParks = parkAndAlerts.alerts;
-      //  const parkImage = parkAndAlerts.images[0].url; plans to incorporate images into each of the parks coming soon.
-
-        if(alertsFromParks === ""){
-            alertsFromParks = noAlerts;
-        }
-        return `
-       <div class="natpark card">
-        <div class=" card-title">${parkName}, ${stateName}<br></div>
-        <div class=" card-text">${alertsFromParks}</div>
-</div>
-`
-}).join('');
-
-
-    natParkDiv.innerHTML = displayEverything;
-}
-
-*/
-
-
-
-
