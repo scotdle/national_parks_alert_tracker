@@ -49,8 +49,5 @@ exports.handler = async function(event, context) {
             return new Promise((resolve, reject) => {
                 resolve(parksWithAlerts);
             })
-
-
         })
-
 };

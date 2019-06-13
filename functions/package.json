@@ -15,7 +15,6 @@
   "author": "Netlify",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.18.0",
     "node-fetch": "^2.6.0",
     "qs": "^6.7.0"
   }
