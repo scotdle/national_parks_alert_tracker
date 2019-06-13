@@ -1,48 +1,58 @@
 const axios = require("axios/index");
 const qs = require("qs");
 const fetch = require("node-fetch");
-
-var alertEndpoint = "";
-var parkEndpoint = "";
+const colors = require('colors');
 
 
+var parksWithAlerts = "";
+// Get env var values defined in our Netlify site UI
+const {api_key, alert_api_url, park_api_url} = process.env;
+const alertEndpoint = stateName => {
+console.log("im the alert promise!".red);
 
-exports.handler = function getURLS(event, context, callback) {
-  // apply our function to the queryStringParameters and assign it to a variable
-  // Get env var values defined in our Netlify site UI
-  const {api_key, alert_api_url, park_api_url} = process.env;
-  // In this example, the API Key needs to be passed in the params with a key of key.
-  // We're assuming that the ApiParams var will contain the initial ?
-   var stateName =event.queryStringParameters.stateName;
-   alertEndpoint = `${alert_api_url}${stateName}${api_key}`;
-   parkEndpoint = `${park_api_url}${stateName}${api_key}`;
+  return fetch(`${alert_api_url}${stateName}${api_key}`).then(res => res.json().then(res => res.data));
 
 
-  // Let's log some stuff we already have.
-  console.log("Injecting token to", alert_api_url, park_api_url);
-  console.log("logging event.....", event);
-  console.log("Constructed URLs are ...", alertEndpoint, parkEndpoint);
-  
 
 };
-async function getData(alertsArea, alertHeader) {
+
+const parkEndpoint = stateName => {
+  console.log("im the park promise!".red);
 
 
-  const [getAlertData, getParkData] = await Promise.all([fetch(alertEndpoint), fetch(parkEndpoint)]);
+
+    return fetch(`${park_api_url}${stateName}${api_key}`).then(res => res.json().then(res => res.data));
+
+};
 
 
-  var alertResults = await getAlertData.json();
-  var parkResults=  await getParkData.json();
-  var alertData = alertResults.data;
-  var parkData = parkResults.data;
 
-  let parksWithAlerts = parkData.map(park => {
-    park.alertData = alertData.filter(alert => alert.parkCode === park.parkCode);
-    return park
 
-  });
+exports.handler = async function(event, context) {
+    const stateName = event.queryStringParameters.stateName;
+    console.log("waiting for promises".red);
+    return Promise.all([alertEndpoint(stateName), parkEndpoint(stateName)])
+        .then(values => {
 
-  console.log(parksWithAlerts);
+            const [alertData, parkData] = values;
+            console.log("promises have been returned i think!".red);
+            console.log("here's the alert data".red);
+            console.log(alertData);
+            console.log("here's the park data".red);
+            console.log(parkData);
 
-//  displayAlerts(parksWithAlerts, alertsArea, alertHeader)
-}
+            const parksWithAlerts = parkData.map(park => {
+                park.alertData = alertData.filter(alert => alert.parkCode === park.parkCode);
+                return park;
+            });
+            console.log("here is both of them together!".red);
+            console.log(parksWithAlerts);
+
+            return new Promise((resolve, reject) => {
+                resolve(parksWithAlerts);
+            })
+
+
+        })
+
+};
