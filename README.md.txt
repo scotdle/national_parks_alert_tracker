@@ -1,6 +1,6 @@
-# National Parks Alert Tracker
+# National Parks Service Alert Tracker
 
-Using the NPS API, this site will fetch alert data and put it into the appropriate national park.
+Using the NPS API, this site will fetch alert data from every park, monument & anything else the NPS maintains..
 
 
 ## Built With
@@ -8,6 +8,7 @@ Using the NPS API, this site will fetch alert data and put it into the appropria
 * HTML
 * Vanilla JS
 * SASS
+* Netlify Functions to hide API work
 
 ## Authors
 

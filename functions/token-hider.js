@@ -1,5 +1,6 @@
 
 const fetch = require("node-fetch");
+const color = require("colors");
 
 
 var parksWithAlerts = "";
@@ -33,7 +34,7 @@ exports.handler = async function(event, context) {
         .then(values => {
 
             const [alertData, parkData] = values;
-            console.log("promises have been returned i think!".red);
+            console.log("promises have been returned!".red);
             console.log("here's the alert data".red);
             console.log(alertData);
             console.log("here's the park data".red);
@@ -45,9 +46,14 @@ exports.handler = async function(event, context) {
             });
             console.log("here is both of them together!".red);
             console.log(parksWithAlerts);
-
-            return new Promise((resolve, reject) => {
-                resolve(parksWithAlerts);
-            })
+            return {
+                statusCode: 200,
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(parksWithAlerts)
+            };
         })
+        .catch(error => {
+            return error;
+        });
+
 };
