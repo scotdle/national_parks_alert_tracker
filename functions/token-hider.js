@@ -3,11 +3,11 @@ const fetch = require("node-fetch");
 const color = require("colors");
 
 
+
 var parksWithAlerts = "";
 // Get env var values defined in our Netlify site UI
 const {api_key, alert_api_url, park_api_url} = process.env;
 const alertEndpoint = stateName => {
-console.log("im the alert promise!".red);
 
   return fetch(`${alert_api_url}${stateName}${api_key}`).then(res => res.json().then(res => res.data));
 
@@ -16,7 +16,6 @@ console.log("im the alert promise!".red);
 };
 
 const parkEndpoint = stateName => {
-  console.log("im the park promise!".red);
 
 
 
