@@ -13,8 +13,8 @@ states.forEach(function (el) {
 });
 states_mobile.addEventListener("change", getStateNameMobile);
 
-function getStateNameDesktop(nodeList) {
-    stateName = nodeList.path[0].id;
+function getStateNameDesktop() {
+    stateName = this.id;
     fetchNetlifyFunction();
     scrolltoAlerts();
 }
