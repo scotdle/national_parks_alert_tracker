@@ -17,10 +17,6 @@ Using the NPS API, this site will fetch alert data from every park, monument & a
 
 
 
-## License
-
-This project is licensed under the MIT License -
-
 ## Acknowledgments
 
 * thanks to the National Park Service for allowing me to use such a great API!
